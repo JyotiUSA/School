@@ -1,0 +1,10 @@
+object--(car)---------------school
+|
+|
+|
+(Students)--(rollNo, Name, Std,marks,resultStatus,subjects)--()
+(Teachers)--(name, salary,classTeacherAssignment,subjectToTeach)--()
+|
+|
+properties--(colour: red,blue; size: big,small; brand: toyota, maruti)-----------(std: Ist,IInd; subject: maths,languages;)
+features--(start, brake, speed)-------------(sports, results, admission)
