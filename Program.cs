@@ -32,6 +32,10 @@ jyoti.Result(); //jyoti was present in exame, so no absent need to mention in pe
 
 Console.WriteLine($"Thank you {jyoti.name}.....");
 
+//Called the static method, so need to call by Calss name. 
+Student.finalStatement();
+
+
 #endregion
 
 #region Tejeshree Onject
@@ -56,6 +60,9 @@ tejeshree.calculateSportsMarksForWinners(ref newSportWinnerMarksFor12Std);
 tejeshree.Result(); //jyoti was present in exame, so no absent need to mention in percentage calculation.
 
 Console.WriteLine($"Thank you {tejeshree.name}.....");
+
+Student.finalStatement();
+
 
 #endregion
 

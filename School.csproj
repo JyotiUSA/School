@@ -11,4 +11,10 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="Csharp">
+      <HintPath>..\Csharp\bin\Release\net8.0\Csharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

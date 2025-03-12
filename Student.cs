@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿
+using Csharp;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -108,6 +110,15 @@ namespace School
             Console.WriteLine($"\nYou achive\t{percentage}%\tin this examination.\n");
 
             return percentage;
+        }
+
+        //Added functionality - used .dll flie and added into COM reference.
+        //i.e., logic was written by another team in different project & we are using its functionality by calling yhe defined method
+        public static void finalStatement()
+        {
+            GoodByeMessage goodByeMessage = new GoodByeMessage();
+            goodByeMessage.PrintAtEnd();
+            Console.WriteLine("-------------------------");
         }
 
         public static void UsingACustomType()
