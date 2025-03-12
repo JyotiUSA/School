@@ -1,7 +1,5 @@
 ﻿using School;
-
-//string jyotiAsJson = jyoti.ConvertToJson();
-//Console.WriteLine(jyotiAsJson);
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 Console.WriteLine("-------------Students--------------");
 Console.WriteLine("-----------------------------------");
@@ -30,7 +28,7 @@ jyoti.calculateSportsMarksForWinners(ref newSportWinnerMarksFor6Std);
 //Calculating Percentages.
 jyoti.Result(); //jyoti was present in exame, so no absent need to mention in percentage calculation.
 
-Console.WriteLine($"Thank you {jyoti.name}.....");
+Console.WriteLine($"Thank you {jyoti.Name}.....");
 
 //Called the static method, so need to call by Calss name. 
 Student.finalStatement();
@@ -59,11 +57,36 @@ tejeshree.calculateSportsMarksForWinners(ref newSportWinnerMarksFor12Std);
 //Calculating Percentages.
 tejeshree.Result(); //jyoti was present in exame, so no absent need to mention in percentage calculation.
 
-Console.WriteLine($"Thank you {tejeshree.name}.....");
+Console.WriteLine($"Thank you {tejeshree.Name}.....");
 
 Student.finalStatement();
 
 
 #endregion
+
+Console.WriteLine("-------------Json__________");
+
+#region Converting to Json string
+string jyotiAsJson = jyoti.ConvertToJson();
+Console.WriteLine(jyotiAsJson);
+#endregion
+
+Console.WriteLine("-------------List__________");
+
+#region List of students object
+
+List<Student> stud = new List<Student>();
+stud.Add(jyoti);
+stud.Add(tejeshree);
+
+Console.WriteLine("List of Students:-");
+foreach (Student s in stud)
+{
+    s.DisplayStudentsDetails();
+    Console.WriteLine("++++++++++++");
+}
+
+#endregion
+
 
 Console.ReadLine();
