@@ -3,6 +3,7 @@ using Csharp;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -10,86 +11,12 @@ using System.Threading.Tasks;
 
 namespace School
 {
-    class Student
+    class Student : ExaminationDepartment
     {
         private int rollNo;
         private string name;
         private int std;
         private DateTime birthDate;
-
-        public string[] subjects;
-
-        private int marks;
-        private double percentage;
-        private bool resultStatus;
-        private string passOrFail;
-
-        private const int minimunmarks = 1;
-
-        public static int concessionMarks = 35;
-
-        public static int sportMarks = 5;
-
-        public int MinimumMarks
-        {
-            get
-            {
-                return minimunmarks;
-            }
-            //Not allowed to set a value for a constant varible
-            //set
-            //{
-            //    minimunmarks = value;
-            //}
-        }
-
-        public string PassOrFali
-        {
-            get
-            {
-                return passOrFail;
-            }
-            set
-            {
-                passOrFail = value;
-            }
-        }
-
-        public bool ResultStatus
-        {
-            get
-            {
-                return resultStatus;
-            }
-            set
-            {
-                resultStatus = value;
-            }
-        }
-
-        public double Percentage
-        {
-            get
-            {
-                return percentage;
-            }
-            set
-            {
-                percentage = value;
-            }
-        }
-
-        public int Marks
-        {
-            get
-            {
-                return marks;
-            }
-            set
-            {
-                marks = value;
-            }
-        }
 
         public DateTime BirthDate
         {
@@ -138,6 +65,8 @@ namespace School
                 rollNo = value;
             }
         }
+
+        //Constructor
         public Student(string name, int std, int rollNo, DateTime birthDate)
         {
             RollNo = rollNo;
@@ -146,81 +75,54 @@ namespace School
             BirthDate = birthDate;
         }
 
-        public double Exame(bool absentInExame = false)
+        //Display Students details
+        public void DisplayStudentsDetails()
         {
-            if (absentInExame)
-            {
-                Marks = 0;
-                Console.WriteLine("You was absent in exame.");
-            }
-
-            return Exame(minimunmarks,minimunmarks,minimunmarks, minimunmarks);
+            Console.WriteLine($"\nName:\t\t{Name}\nStd.:\t\t{Std}\nRoll no.:\t{RollNo}\nBirth date:\t{BirthDate.ToShortDateString()}");
         }
 
-        public double Exame(int mathsMarks, int languageMarks, int socialScienceMarks, int scienceMarks)
+        //Display Examination Report
+        public void Examination()
         {
-            if ((mathsMarks <= 35) && (languageMarks >= 35 && socialScienceMarks >= 35 && scienceMarks >= 35))
+            double totalMarks;
+            double percentage;
+            string result;
+
+            ExaminationDepartment exame = new ExaminationDepartment();
+
+            Console.Write($"\nNow enter your marks as instructed follow:-\n");
+
+            for (int i = 0 ; i < 4; i++)
             {
-                mathsMarks = concessionMarks;
-                ResultStatus = true;
-            }
-            else if ((languageMarks <= 35) && (mathsMarks >= 35 && socialScienceMarks >= 35 && scienceMarks >= 35))
-            {
-                languageMarks = concessionMarks;
-                ResultStatus = true;
-            }
-            else if ((socialScienceMarks <= 35) && (languageMarks >= 35 && mathsMarks >= 35 && scienceMarks >= 35))
-            {
-                socialScienceMarks = concessionMarks;
-                ResultStatus = true;
-            }
-            else if ((scienceMarks <= 35) && (languageMarks >= 35 && socialScienceMarks >= 35 && mathsMarks >= 35))
-            {
-                scienceMarks = concessionMarks;
-                ResultStatus = true;
-            }
-            PassOrFali = "Fail";
-            if (ResultStatus)
-            {
-                PassOrFali = "Pass";
+                Console.Write($"Enter {Subject[i]} marks =\t");
+                ObtainedMarks[i] = int.Parse(Console.ReadLine());
+                if (ObtainedMarks[i] > 100)
+                {
+                    Console.WriteLine("Marks cannot be greater than 100. Please enter the mark again.");
+                    i -= 1;
+                }
             }
 
+            Console.WriteLine("");
+            for (int i = 0; i < 4; i++)
+            {
+                Console.Write($"{Subject[i]} = {ObtainedMarks[i]} /100 ;\t");
+            }
 
-            //enter the marks obtain in each subject
-            Marks = (mathsMarks + languageMarks + socialScienceMarks + scienceMarks);
+            totalMarks = exame.Exame(ObtainedMarks[0] , ObtainedMarks[1] , ObtainedMarks[2] , ObtainedMarks[3]);
 
-            Console.WriteLine($"\n{Name}\thas obtain total marks :\t{Marks}\n"); //50+50+50+50=200
-            Console.WriteLine($"\n{Name}\tis\t{PassOrFali}\tin this examination."); //50+50+50+50=200
+            Console.WriteLine("");
+            Console.WriteLine($"\nTotal Marks :\t{totalMarks}");
 
-            return marks;
+            percentage = exame.PercentageCalculation();
+            Console.WriteLine($"\nPercentage :\t{percentage}%");
+
+            result = exame.ExameResultStatus();
+            Console.WriteLine($"\n{this.Name}\t{result} in the examination");
 
         }
 
-        public double calculateSportsMarks()
-        {
-            Marks = Marks + sportMarks ;
-            Console.WriteLine($"\nAfter adding\t{sportMarks}\tas a standard Sport's participant marks, your total marks are:\t{Marks}");
-            return Marks;
-        }
-
-        public int calculateSportsMarksForWinners(ref int winnerSportsMarks)
-        {
-            winnerSportsMarks = 50;
-            Marks = Marks + winnerSportsMarks;
-            Console.WriteLine($"\nAs your a winner, you will get extra 50 marks. Now your total marks will be\t{Marks}\t");
-            return Marks;
-        }
-
-        public double Result()
-        {
-            percentage = (double)Marks * 100  / 400  ; // (200/400)*100 = 0.5 * 100 = 50 %
-
-            Console.WriteLine($"\nYou achive\t{Percentage}%\tin this examination.\n");
-
-            return Percentage;
-        }
-
-        //Added functionality - used .dll flie and added into COM reference.
+        #region Added functionality - used .dll flie and added into COM reference.
         //i.e., logic was written by another team in different project & we are using its functionality by calling yhe defined method
         public static void finalStatement()
         {
@@ -228,21 +130,14 @@ namespace School
             goodByeMessage.PrintAtEnd();
             Console.WriteLine("-------------------------");
         }
+        #endregion
 
-        public static void UsingACustomType()
-        {
-            List<string> list = new List<string>();
-        }
-
+        #region Method to create Json of 'object of this(Student) class'
         public string ConvertToJson()
         {
             string json = JsonConvert.SerializeObject(this);
             return json;
         }
-
-        public void DisplayStudentsDetails()
-        {
-            Console.WriteLine($"\nName:\t{Name}\nStd.:\t{Std}\nRoll\tno.:\t{RollNo}\nBirth\tdate:\t{BirthDate}");
-        }
+        #endregion
     }
 }

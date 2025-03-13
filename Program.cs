@@ -5,88 +5,42 @@ Console.WriteLine("-------------Students--------------");
 Console.WriteLine("-----------------------------------");
 
 //Static variable use for sportsmarks, because those are standard marks for all students9i.e., object of school class.)
-Student.sportMarks = 20;
+//Student.sportMarks = 20;
 
-#region Jyoti Object
-//Object Jyoti is created and defined
+#region Object Creation
+
 Student jyoti = new Student("Jyoti" , 6 , 27, new DateTime(1993,09,16) );
 
-//Detailos of jyoti
-jyoti.DisplayStudentsDetails();
-
-//Exame marks , will decide are your pass or fail
-jyoti.Exame(60, 20, 37, 90);
-
-//All about sports participants
-jyoti.calculateSportsMarks();
-
-// Now Winner will wiiner of 6th std. will get 25 marks in sports if they win.
-//We are using "ref". To specific std. students, the marks changes now not default marks.
-int newSportWinnerMarksFor6Std = 25; 
-jyoti.calculateSportsMarksForWinners(ref newSportWinnerMarksFor6Std);
-
-//Calculating Percentages.
-jyoti.Result(); //jyoti was present in exame, so no absent need to mention in percentage calculation.
-
-Console.WriteLine($"Thank you {jyoti.Name}.....");
-
-//Called the static method, so need to call by Calss name. 
-Student.finalStatement();
-
-
-#endregion
-
-#region Tejeshree Onject
-//Object Tejeshree is created and defined
 Student tejeshree = new Student("Tejeshree", 12, 53, new DateTime(1981, 08, 24));
 
-//Detailos of tejeshree
-tejeshree.DisplayStudentsDetails();
+Student trishala = new Student("Trishala", 10, 06, new DateTime(1983, 01, 03));
 
-//Exame marks , will decide are your pass or fail
-tejeshree.Exame(91, 15, 30, 25);
+Student ujwala = new Student("Ujwala", 08, 63, new DateTime(1986, 07, 06));
 
-//All about sports participants
-tejeshree.calculateSportsMarks();
-
-// Now Winner will wiiner of 6th std. will get 25 marks in sports if they win.
-//We are using "ref". To specific std. students, the marks changes now not default marks.
-int newSportWinnerMarksFor12Std = 30;
-tejeshree.calculateSportsMarksForWinners(ref newSportWinnerMarksFor12Std);
-
-//Calculating Percentages.
-tejeshree.Result(); //jyoti was present in exame, so no absent need to mention in percentage calculation.
-
-Console.WriteLine($"Thank you {tejeshree.Name}.....");
-
-Student.finalStatement();
-
+Student bhagyashree = new Student("Bhagyashree", 04, 10, new DateTime(1988, 08, 04));
 
 #endregion
-
-Console.WriteLine("-------------Json__________");
-
-#region Converting to Json string
-string jyotiAsJson = jyoti.ConvertToJson();
-Console.WriteLine(jyotiAsJson);
-#endregion
-
-Console.WriteLine("-------------List__________");
 
 #region List of students object
 
 List<Student> stud = new List<Student>();
 stud.Add(jyoti);
 stud.Add(tejeshree);
+stud.Add(trishala);
+stud.Add(ujwala);
+stud.Add(bhagyashree);
 
-Console.WriteLine("List of Students:-");
 foreach (Student s in stud)
 {
+    Console.WriteLine($"-------{s.Name}---------");
     s.DisplayStudentsDetails();
-    Console.WriteLine("++++++++++++");
+    s.Examination();
+    Console.WriteLine("\n\n-------------------------");
 }
 
 #endregion
 
+//jyoti.Examination();
+Student.finalStatement();
 
 Console.ReadLine();
