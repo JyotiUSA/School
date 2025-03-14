@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace School
 {
-    class ExaminationDepartment
+    class ExaminationDepartment : IExaminationDepartment
     {
         private int marks;
         private double percentage;
@@ -15,7 +15,7 @@ namespace School
         private string passOrFail;
 
         private string[] subjects = new string[] { "Maths","language","Social Science","General Science"};
-        private int[] obtainedMarks = new int[4];
+       
 
         private const int minimunmarks = 1;
 
@@ -82,17 +82,19 @@ namespace School
             }
         }
 
-        public int[] ObtainedMarks
-        {
-            get { return obtainedMarks; }
-            set { obtainedMarks = value; }
-        }
+        
 
         public string[] Subject
         {
             get { return subjects; }
-            private set { subjects = value; }
+            set { subjects = value; }
         }
+
+        public string[] getSubjects()
+        {
+            return Subject;
+        }
+
 
         //Calculation of marks for absent students
         public double Exame(bool absentInExame = false)

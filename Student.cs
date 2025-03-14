@@ -3,20 +3,29 @@ using Csharp;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace School
 {
-    class Student : ExaminationDepartment
+    interface IStudentApi
     {
-        private int rollNo;
-        private string name;
-        private int std;
+        void Examination(Student s);
+        void Displaystudentdetails(Student s);
+    }
+
+    class Student
+    {
+        public static int countStudents = 1;
         private DateTime birthDate;
+        private int std;
+        private string name;
+        private int rollNo;
 
         public DateTime BirthDate
         {
@@ -66,37 +75,54 @@ namespace School
             }
         }
 
-        //Constructor
-        public Student(string name, int std, int rollNo, DateTime birthDate)
+        private int[] obtainedMarks = new int[4];
+        public int[] ObtainedMarks
         {
-            RollNo = rollNo;
-            Name = name;
-            Std = std;
-            BirthDate = birthDate;
+            get { return obtainedMarks; }
+            set { obtainedMarks = value; }
         }
+    }
+
+    class StudentApi : IStudentApi
+    {
+        public StudentApi()
+        {
+                
+        }
+       
+
+        
+        
+
+        //public Student(string name, int std, int rollNo, DateTime birthDate)
+        //{
+        //    RollNo = rollNo;
+        //    Name = name;
+        //    Std = std;
+        //    BirthDate = birthDate;
+        //}
 
         //Display Students details
-        public void DisplayStudentsDetails()
-        {
-            Console.WriteLine($"\nName:\t\t{Name}\nStd.:\t\t{Std}\nRoll no.:\t{RollNo}\nBirth date:\t{BirthDate.ToShortDateString()}");
-        }
+        
+        
 
         //Display Examination Report
-        public void Examination()
+        public void Examination(Student student)
         {
             double totalMarks;
             double percentage;
             string result;
 
-            ExaminationDepartment exame = new ExaminationDepartment();
-
+            IExaminationDepartment exame = new ExaminationDepartment();
+            var test = exame.getSubjects()[0];
+             
             Console.Write($"\nNow enter your marks as instructed follow:-\n");
 
             for (int i = 0 ; i < 4; i++)
             {
-                Console.Write($"Enter {Subject[i]} marks =\t");
-                ObtainedMarks[i] = int.Parse(Console.ReadLine());
-                if (ObtainedMarks[i] > 100)
+                Console.Write($"Enter {exame.getSubjects()[i]} marks =\t");
+                student.ObtainedMarks[i] = int.Parse(Console.ReadLine());
+                if (student.ObtainedMarks[i] > 100)
                 {
                     Console.WriteLine("Marks cannot be greater than 100. Please enter the mark again.");
                     i -= 1;
@@ -106,10 +132,10 @@ namespace School
             Console.WriteLine("");
             for (int i = 0; i < 4; i++)
             {
-                Console.Write($"{Subject[i]} = {ObtainedMarks[i]} /100 ;\t");
+                Console.Write($"{exame.getSubjects()[i]} = {student.ObtainedMarks[i]} /100 ;\t");
             }
 
-            totalMarks = exame.Exame(ObtainedMarks[0] , ObtainedMarks[1] , ObtainedMarks[2] , ObtainedMarks[3]);
+            totalMarks = exame.Exame(student.ObtainedMarks[0] ,  student.ObtainedMarks[1] , student.ObtainedMarks[2] , student.ObtainedMarks[3]);
 
             Console.WriteLine("");
             Console.WriteLine($"\nTotal Marks :\t{totalMarks}");
@@ -118,8 +144,14 @@ namespace School
             Console.WriteLine($"\nPercentage :\t{percentage}%");
 
             result = exame.ExameResultStatus();
-            Console.WriteLine($"\n{this.Name}\t{result} in the examination");
+            Console.WriteLine($"\n{student.Name}\t{result} in the examination");
 
+        }
+
+        public void Displaystudentdetails(Student s)
+        {
+            Console.WriteLine($"\nName:\t\t{s.Name}\nStd.:\t\t{s.Std}\nRoll no." +
+                $":\t{s.RollNo}\nBirth date:\t{s.BirthDate.ToShortDateString()}");
         }
 
         #region Added functionality - used .dll flie and added into COM reference.
@@ -137,6 +169,26 @@ namespace School
         {
             string json = JsonConvert.SerializeObject(this);
             return json;
+        }
+
+        public double Exame(bool absentInExame = false)
+        {
+            throw new NotImplementedException();
+        }
+
+        public double Exame(int mathsMarks, int languageMarks, int socialScienceMarks, int scienceMarks)
+        {
+            throw new NotImplementedException();
+        }
+
+        public double PercentageCalculation()
+        {
+            throw new NotImplementedException();
+        }
+
+        public string ExameResultStatus()
+        {
+            throw new NotImplementedException();
         }
         #endregion
     }
