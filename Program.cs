@@ -26,6 +26,8 @@ while (true)
     if (yOrN.Equals("Y") || yOrN.Equals("y"))
     {
         newEntry = true;
+
+        #region Creating required objects of Student and Examination
         IStudentAPI studentMethod = new StudentAPI();
 
         StudentModel studentVariable = new StudentModel();
@@ -33,7 +35,9 @@ while (true)
         IExaminationAPI examinationMethod = new ExaminationAPI();
 
         ExaminationModel examinationVariable = new ExaminationModel();
+        #endregion
 
+        #region Collecting Student details
         string[] studentsData = new string[] { "Name", "Std.", "Roll No.", "Birth Date" };
 
         Console.WriteLine($"\n{StudentModel.countStudents++}. Enter students details:-");
@@ -49,17 +53,57 @@ while (true)
 
         Console.WriteLine($"Enter {studentsData[3]}:\t");
         studentVariable.BirthDate = DateTime.Parse(Console.ReadLine());
+        #endregion
+
+        #region Collecting Marks details
+        Console.Write($"\nNow enter your marks as instructed follow:-\n");
+
+        for (int i = 0; i < 4; i++)
+        {
+            Console.Write($"Enter {examinationVariable.getSubjects()[i]} marks =\t");
+            studentVariable.ObtainedMarks[i] = int.Parse(Console.ReadLine());
+            if (studentVariable.ObtainedMarks[i] > 100)
+            {
+                Console.WriteLine("Marks cannot be greater than 100. Please enter the mark again.");
+                i -= 1;
+            }
+        }
+
+        Console.WriteLine("");
+        for (int i = 0; i < 4; i++)
+        {
+            Console.Write($"{examinationVariable.getSubjects()[i]} = {studentVariable.ObtainedMarks[i]} /100 ;\t");
+        }
+
+        examinationVariable.MathsMarks = studentVariable.ObtainedMarks[0];
+        examinationVariable.LanguageMarks = studentVariable.ObtainedMarks[1];
+        examinationVariable.SocialScienceMarks = studentVariable.ObtainedMarks[2];
+        examinationVariable.ScienceMarks = studentVariable.ObtainedMarks[3];
+
+        //double totalMarks = examinationMethod.Exame(examinationVariable);
+        examinationVariable.Marks = examinationMethod.Exame(examinationVariable);
+
+        examinationVariable.Percentage = examinationMethod.PercentageCalculation(examinationVariable);
+
+        examinationVariable.PassOrFali = examinationMethod.ExameResultStatus(examinationVariable);
+
+        #endregion
+
+
 
         List<StudentModel> newStudents = new List<StudentModel>();
         newStudents.Add(studentVariable);
         
         foreach (StudentModel s in newStudents)
         {
-            Console.WriteLine($"-------{s.Name}---------");
+            Console.WriteLine($"\n\n-------{s.Name}'s Report Card :----------");
             studentMethod.Displaystudentdetails(s);
-            //int m = examinationMethod.Exame(examinationVariable);
+            Console.WriteLine($"\nTotal Marks :\t{examinationVariable.Marks}");
+            Console.WriteLine($"\nPercentage :\t{examinationVariable.Percentage}%");
+            Console.WriteLine($"\n{studentVariable.Name} is\t{examinationVariable.PassOrFali} in the examination");
             Console.WriteLine("\n\n-------------------------");
         }
+        
     }
     else
     {

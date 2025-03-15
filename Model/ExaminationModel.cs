@@ -8,7 +8,7 @@ namespace School.Model
 {
     class ExaminationModel
     {
-        private int marks;
+        private double marks;
         private double percentage;
         private bool resultStatus;
         private string passOrFail;
@@ -70,7 +70,7 @@ namespace School.Model
             }
         }
 
-        public int Marks
+        public double Marks
         {
             get
             {
