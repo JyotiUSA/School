@@ -28,35 +28,24 @@ namespace School.API.API_Classes
         //public double Exame(int mathsMarks, int languageMarks, int socialScienceMarks, int scienceMarks)
         public double Exame(ExaminationModel em)
         {
-
             if ((em.MathsMarks <= 35) && (em.LanguageMarks >= 35 && em.SocialScienceMarks >= 35 && em.ScienceMarks >= 35))
             {
                 em.MathsMarks = concessionMarks;
-                em.ResultStatus = true;
             }
             else if ((em.LanguageMarks <= 35) && (em.MathsMarks >= 35 && em.SocialScienceMarks >= 35 && em.ScienceMarks >= 35))
             {
                 em.LanguageMarks = concessionMarks;
-                em.ResultStatus = true;
             }
             else if ((em.SocialScienceMarks <= 35) && (em.LanguageMarks >= 35 && em.MathsMarks >= 35 && em.ScienceMarks >= 35))
             {
                 em.SocialScienceMarks = concessionMarks;
-                em.ResultStatus = true;
             }
             else if ((em.ScienceMarks <= 35) && (em.LanguageMarks >= 35 && em.SocialScienceMarks >= 35 && em.MathsMarks >= 35))
             {
                 em.ScienceMarks = concessionMarks;
-                em.ResultStatus = true;
             }
 
-            em.PassOrFali = "Fail";
-            if (em.ResultStatus)
-            {
-                em.PassOrFali = "Pass";
-            }
-
-            //enter the marks obtain in each subject
+            //Total of all subect's marks
             em.Marks = (em.MathsMarks + em.LanguageMarks + em.SocialScienceMarks + em.ScienceMarks);
 
             return em.Marks; 
@@ -64,6 +53,36 @@ namespace School.API.API_Classes
 
         public string ExameResultStatus(ExaminationModel em)
         {
+
+            if ((em.MathsMarks <= 35) && (em.LanguageMarks >= 35 && em.SocialScienceMarks >= 35 && em.ScienceMarks >= 35))
+            {
+                em.MathsMarks = concessionMarks;
+                em.PassOrFali = "Pass with concession";
+            }
+            else if ((em.LanguageMarks <= 35) && (em.MathsMarks >= 35 && em.SocialScienceMarks >= 35 && em.ScienceMarks >= 35))
+            {
+                em.LanguageMarks = concessionMarks;
+                em.PassOrFali = "Pass with concession";
+            }
+            else if ((em.SocialScienceMarks <= 35) && (em.LanguageMarks >= 35 && em.MathsMarks >= 35 && em.ScienceMarks >= 35))
+            {
+                em.SocialScienceMarks = concessionMarks;
+                em.PassOrFali = "Pass with concession";
+            }
+            else if ((em.ScienceMarks <= 35) && (em.LanguageMarks >= 35 && em.SocialScienceMarks >= 35 && em.MathsMarks >= 35))
+            {
+                em.ScienceMarks = concessionMarks;
+                em.PassOrFali = "Pass with concession";
+            }
+            else if (em.ScienceMarks >= 35 && em.LanguageMarks >= 35 && em.SocialScienceMarks >= 35 && em.MathsMarks >= 35)
+            {
+                em.PassOrFali = "Pass";
+            }
+            else
+            {
+                em.PassOrFali = "Fail";
+            }
+            
             return em.PassOrFali;
         }
 

@@ -87,6 +87,7 @@ while (true)
 
         examinationVariable.PassOrFali = examinationMethod.ExameResultStatus(examinationVariable);
 
+
         #endregion
 
 

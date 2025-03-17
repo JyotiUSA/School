@@ -10,7 +10,7 @@ namespace School.Model
     {
         private double marks;
         private double percentage;
-        private bool resultStatus;
+        //private bool resultStatus;
         private string passOrFail;
 
         private int mathsMarks, languageMarks, socialScienceMarks, scienceMarks;
@@ -46,17 +46,17 @@ namespace School.Model
             }
         }
 
-        public bool ResultStatus
-        {
-            get
-            {
-                return resultStatus;
-            }
-            set
-            {
-                resultStatus = value;
-            }
-        }
+        //public bool ResultStatus
+        //{
+        //    get
+        //    {
+        //        return resultStatus;
+        //    }
+        //    set
+        //    {
+        //        resultStatus = value;
+        //    }
+        //}
 
         public double Percentage
         {
