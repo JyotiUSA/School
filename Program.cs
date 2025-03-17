@@ -1,4 +1,5 @@
-﻿using School;
+﻿using Csharp;
+using School;
 using School.API.API_Classes;
 using School.API.API_Interfaces;
 using School.Model;
@@ -114,6 +115,11 @@ while (true)
 }
 #endregion
 
-//Student.finalStatement();
+GoodByeMessage goodBye = new GoodByeMessage();
+string finalStatement = goodBye.PrintAtEndstring();
+Console.WriteLine($"\n{finalStatement}\n==========================\n\n");
+
+//Console.WriteLine($"\n{finalStatement}\n==========================\n\nPress any key to exit from this window...");
 
 Console.ReadLine();
+
