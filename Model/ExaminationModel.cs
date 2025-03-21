@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace School.Model
 {
-    class ExaminationModel
+    public class ExaminationModel
     {
         private double marks;
         private double percentage;

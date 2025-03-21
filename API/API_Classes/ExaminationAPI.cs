@@ -9,9 +9,13 @@ using System.Threading.Tasks;
 
 namespace School.API.API_Classes
 {
-    class ExaminationAPI : IExaminationAPI
+    public class ExaminationAPI : IExaminationAPI
     {
         public static int concessionMarks = 35;
+
+        public ExaminationAPI()
+        {
+        }
 
         //public double Exame(bool absentInExame = false)
         public double Exame(ExaminationModel em, bool absentInExame = false)
