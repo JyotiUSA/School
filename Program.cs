@@ -14,8 +14,9 @@ Console.WriteLine("-----------------------------------");
 //Student.sportMarks = 20;
 
 
-
 #region Object Creation at runtime
+List<StudentModel> newStudents = new List<StudentModel>();
+
 
 while (true)
 {
@@ -88,12 +89,11 @@ while (true)
 
         examinationVariable.PassOrFali = examinationMethod.ExameResultStatus(examinationVariable);
 
-
         #endregion
 
 
 
-        List<StudentModel> newStudents = new List<StudentModel>();
+        //List<StudentModel> newStudents = new List<StudentModel>();
         newStudents.Add(studentVariable);
         
         foreach (StudentModel s in newStudents)
@@ -112,14 +112,20 @@ while (true)
         newEntry = false;
         break;
     }
+
+
 }
+
+ReportCard_file.SaveReportCards(newStudents);
+
 #endregion
 
+
+#region Final Display statements
 GoodByeMessage goodBye = new GoodByeMessage();
 string finalStatement = goodBye.PrintAtEndstring();
-Console.WriteLine($"\n{finalStatement}\n==========================\n\n");
 
-//Console.WriteLine($"\n{finalStatement}\n==========================\n\nPress any key to exit from this window...");
-
+Console.WriteLine($"\n{finalStatement}\n==========================\n\nPress any key to exit from this window...");
+#endregion
 Console.ReadLine();
 
