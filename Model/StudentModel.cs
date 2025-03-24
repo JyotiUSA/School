@@ -1,4 +1,5 @@
-﻿using System;
+﻿using School.API.API_Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -70,6 +71,11 @@ namespace School.Model
         {
             get { return obtainedMarks; }
             set { obtainedMarks = value; }
+        }
+
+        public static implicit operator StudentModel(StudentAPI v)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -95,7 +95,7 @@ while (true)
 
         //List<StudentModel> newStudents = new List<StudentModel>();
         newStudents.Add(studentVariable);
-        
+
         foreach (StudentModel s in newStudents)
         {
             Console.WriteLine($"\n\n-------{s.Name}'s Report Card :----------");
@@ -105,18 +105,20 @@ while (true)
             Console.WriteLine($"\n{studentVariable.Name} is\t{examinationVariable.PassOrFali} in the examination");
             Console.WriteLine("\n\n-------------------------");
         }
-        
+
     }
-    else
+    else if (yOrN.Equals("N") || yOrN.Equals("n"))
     {
         newEntry = false;
         break;
     }
-
-
+    else
+    {
+        Console.WriteLine("Type Y or N (for yes or no respectively.)");
+        newEntry = false;
+        //break;
+    }
 }
-
-ReportCard_file.SaveReportCards(newStudents);
 
 #endregion
 
@@ -127,5 +129,10 @@ string finalStatement = goodBye.PrintAtEndstring();
 
 Console.WriteLine($"\n{finalStatement}\n==========================\n\nPress any key to exit from this window...");
 #endregion
+
+
+
+ReportCard_file.SaveReportCards(newStudents);
+ReportCard_file.LoadReportCards();
 Console.ReadLine();
 
