@@ -31,10 +31,12 @@ namespace School
             
             foreach (StudentModel s in newStudents)
             {
-                ExaminationModel e = new ExaminationModel();
                 sb.Append($"Name : {s.Name};");
                 sb.Append($"Std. : {s.Std};");
                 sb.Append($"Roll No. : {s.RollNo};");
+                sb.Append($"Marks : {s.exameModel.Marks};");
+                sb.Append($"Percentage : {s.exameModel.Percentage};");
+                sb.Append($"Status : {s.exameModel.PassOrFali};");
 
                 sb.Append(Environment.NewLine);
             }
@@ -62,10 +64,14 @@ namespace School
                     string name = splitData[0].Substring(splitData[0].IndexOf(':') + 1);
                     string std = splitData[1].Substring(splitData[1].IndexOf(':') + 1);
                     string rollNo = splitData[2].Substring(splitData[2].IndexOf(':') + 1);
+                    string marks = splitData[3].Substring(splitData[3].IndexOf(':') + 1);
+                    string percentage = splitData[4].Substring(splitData[4].IndexOf(':') + 1);
+                    string status = splitData[5].Substring(splitData[5].IndexOf(':') + 1);
 
-                    Console.WriteLine($"Report card for {name} from Std.{std} :-\n{allText[i]}");
-                    Console.ResetColor();
+
+                    Console.WriteLine($"\n{i}) {name}'s report cards summary:-\t{allText[i]}");
                 }
+                Console.ResetColor();
             }
         }
         #endregion

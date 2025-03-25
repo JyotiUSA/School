@@ -54,6 +54,7 @@ while (true)
         studentVariable.RollNo = int.Parse((Console.ReadLine()));
 
         Console.WriteLine($"Enter {studentsData[3]}:\t");
+        
         studentVariable.BirthDate = DateTime.Parse(Console.ReadLine());
         #endregion
 
@@ -92,17 +93,17 @@ while (true)
         #endregion
 
 
-
         //List<StudentModel> newStudents = new List<StudentModel>();
         newStudents.Add(studentVariable);
 
         foreach (StudentModel s in newStudents)
         {
             Console.WriteLine($"\n\n-------{s.Name}'s Report Card :----------");
+            s.exameModel = examinationVariable;
             studentMethod.Displaystudentdetails(s);
-            Console.WriteLine($"\nTotal Marks :\t{examinationVariable.Marks}");
-            Console.WriteLine($"\nPercentage :\t{examinationVariable.Percentage}%");
-            Console.WriteLine($"\n{studentVariable.Name} is\t{examinationVariable.PassOrFali} in the examination");
+            Console.WriteLine($"\nTotal Marks :\t{s.exameModel.Marks}");
+            Console.WriteLine($"\nPercentage :\t{s.exameModel.Percentage}%");
+            Console.WriteLine($"\n{studentVariable.Name} is\t{s.exameModel.PassOrFali} in the examination");
             Console.WriteLine("\n\n-------------------------");
         }
 
@@ -116,7 +117,6 @@ while (true)
     {
         Console.WriteLine("Type Y or N (for yes or no respectively.)");
         newEntry = false;
-        //break;
     }
 }
 
@@ -130,9 +130,12 @@ string finalStatement = goodBye.PrintAtEndstring();
 Console.WriteLine($"\n{finalStatement}\n==========================\n\nPress any key to exit from this window...");
 #endregion
 
-
+#region File Handling
 
 ReportCard_file.SaveReportCards(newStudents);
 ReportCard_file.LoadReportCards();
+
+#endregion
+
 Console.ReadLine();
 

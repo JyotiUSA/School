@@ -18,6 +18,8 @@ namespace School.Model
         private string name;
         private int rollNo;
 
+        public ExaminationModel exameModel { get; set; }
+
         public DateTime BirthDate
         {
             get

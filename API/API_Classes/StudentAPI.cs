@@ -18,6 +18,8 @@ namespace School.API.API_Classes
         {
             Console.WriteLine($"\nName:\t\t{sm.Name}\nStd.:\t\t{sm.Std}\nRoll no." +
                 $":\t{sm.RollNo}\nBirth date:\t{sm.BirthDate.ToShortDateString()}");
+
+
         }
     }
 }
