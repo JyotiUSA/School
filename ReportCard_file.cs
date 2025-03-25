@@ -12,15 +12,16 @@ namespace School
     {
         private static string directory = @"D:\Resume2025\C#_Fundamentals\School\";
         private static string file = "ReportCard.txt";
-
+        private static string filePass = "ReportCard_passStudents.txt";
+        
         #region Save Report Card to the file
         internal static void SaveReportCards(List<StudentModel> newStudents)
         {
             string path = $"{directory}{file}";
+            string pathPassedStudents = $"{directory}{filePass}";
 
             //Existance or Creation of Directory
             bool existingFileFound = File.Exists(path);
-
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(directory);
@@ -40,13 +41,24 @@ namespace School
 
                 sb.Append(Environment.NewLine);
             }
-
             File.WriteAllText(path, sb.ToString());
+
+            //Passed students
+            bool existingFileFound_pass = File.Exists(pathPassedStudents);
+
+            StringBuilder sb_pass = new StringBuilder();
+
+            foreach (StudentModel sm in newStudents)
+            {
+                if(sm.exameModel.PassOrFali == "Pass")
+                    sb_pass.AppendLine($"Name : {sm.Name}\t promoted to Std. {sm.Std + 1}");
+            }
+            File.WriteAllText(pathPassedStudents , sb_pass.ToString());
         }
         #endregion
 
 
-        #region Load Report Card from the file
+        #region Reading Report Card from the file
         internal static void LoadReportCards()
         {
             string path = $"{directory}{file}";

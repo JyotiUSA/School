@@ -92,14 +92,13 @@ while (true)
 
         #endregion
 
-
+        studentVariable.exameModel = examinationVariable;
         //List<StudentModel> newStudents = new List<StudentModel>();
         newStudents.Add(studentVariable);
 
         foreach (StudentModel s in newStudents)
         {
             Console.WriteLine($"\n\n-------{s.Name}'s Report Card :----------");
-            s.exameModel = examinationVariable;
             studentMethod.Displaystudentdetails(s);
             Console.WriteLine($"\nTotal Marks :\t{s.exameModel.Marks}");
             Console.WriteLine($"\nPercentage :\t{s.exameModel.Percentage}%");

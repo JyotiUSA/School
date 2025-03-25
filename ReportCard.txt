@@ -1,3 +1,2 @@
-Name : ABC;Std. : 6;Roll No. : 4;Marks : 183;Percentage : 45.75;Status : Fail;
-Name : CBD;Std. : 6;Roll No. : 4;Marks : 183;Percentage : 45.75;Status : Fail;
-Name : GEF;Std. : 9;Roll No. : 40;Marks : 183;Percentage : 45.75;Status : Fail;
+Name : jyoto;Std. : 4;Roll No. : 6;Marks : 201;Percentage : 50.25;Status : Pass with concession;
+Name : teju;Std. : 90;Roll No. : 90;Marks : 360;Percentage : 90;Status : Pass;
