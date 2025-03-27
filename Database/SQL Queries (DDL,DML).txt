@@ -1,0 +1,74 @@
+
+--------------DDL Starts---------------
+
+--------------create table---------------
+
+-- Create the Students table
+create table Students
+(
+StudentID int primary key,
+Name varchar(20),
+Std int,
+RollNo int,
+BirthDate date
+);
+
+-- Create the Exame table
+create table Exam
+(
+	ExameId int primary key,
+	StudentID int,
+	mathsMarks int,
+	languageMarks int,
+	socialScienceMarks int,
+	scienceMarks int,
+	Marks float,
+	Percentage float,
+	PassOrFail varchar(50),
+	Foreign key (StudentID) References Students(StudentID)
+);
+
+--------------insert Data---------------
+-- insert value into Students table
+insert into Students values (1 ,'Jyoti', 6 , 64  , '09/16/1993');
+insert into Students values (2 ,'Bhagya', 10 , 13  , '08/03/1988');
+insert into Students values (3 ,'Uju', 15 , 15  , '07/06/1986');
+insert into Students values (4 ,'Trishal', 12 , 90  , '01/03/1983');
+insert into Students values (5 ,'Teju', 8 , 10  , '08/25/1981');
+-- insert value into Exame table
+
+insert into Exam values (1 , 1 , 50 , 50 , 60 , 40 , 200 , 50 , 'Pass' );
+
+--------------DDL Finish---------------
+---------------------------------------
+--------------DML Finish---------------
+select * from Students;
+
+select * from Exam;
+
+--Checking Foreign Key functionality using JOIN
+select s. Name , e.mathsMarks from Exam e
+join Students s ON e.StudentID = s.StudentId
+where s.Name = 'Jyoti'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

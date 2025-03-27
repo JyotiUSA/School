@@ -1,11 +1,15 @@
 ﻿using Csharp;
-using School;
+using Csharp;
+using Microsoft.Data.SqlClient;
 using School.API.API_Classes;
 using School.API.API_Interfaces;
 using School.Model;
 using System.ComponentModel.Design;
 using System.Xml.Linq;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using School.Database;
+using static Azure.Core.HttpHeader;
+using School.Files;
 
 Console.WriteLine("-------------Students--------------");
 Console.WriteLine("-----------------------------------");
@@ -17,6 +21,10 @@ Console.WriteLine("-----------------------------------");
 #region Object Creation at runtime
 List<StudentModel> newStudents = new List<StudentModel>();
 
+SchoolManagementDatabase database = new SchoolManagementDatabase();
+
+
+int studentIDLast = database.getStudentIdFromStudentTable();
 
 while (true)
 {
@@ -40,6 +48,7 @@ while (true)
         #endregion
 
         #region Collecting Student details
+
         string[] studentsData = new string[] { "Name", "Std.", "Roll No.", "Birth Date" };
 
         Console.WriteLine($"\n{StudentModel.countStudents++}. Enter students details:-");
@@ -54,8 +63,38 @@ while (true)
         studentVariable.RollNo = int.Parse((Console.ReadLine()));
 
         Console.WriteLine($"Enter {studentsData[3]}:\t");
-        
+
         studentVariable.BirthDate = DateTime.Parse(Console.ReadLine());
+
+        //StudentModel studentVariable = new StudentModel();
+        string connectionString = @"Server=DESKTOP-EKMSCB0\SQLEXPRESS;Database=SchoolManagement;Trusted_Connection=True; TrustServerCertificate = True;";
+
+        // SQL query to insert data            
+        string insertQuery = "INSERT INTO Students (StudentID , Name , Std , RollNo , BirthDate) VALUES (@StudentID , @Name , @Std , @RollNo , @BirthDate)\n";
+
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+            try
+            {
+                connection.Open();
+                using (SqlCommand command = new SqlCommand(insertQuery, connection))
+                {
+                    //studentID++;
+                    command.Parameters.AddWithValue("StudentID", studentIDLast);
+                    command.Parameters.AddWithValue("Name", studentVariable.Name);
+                    command.Parameters.AddWithValue("Std", studentVariable.Std);
+                    command.Parameters.AddWithValue("RollNo", studentVariable.RollNo);
+                    command.Parameters.AddWithValue("BirthDate", studentVariable.BirthDate);
+
+                    command.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("An error occurred: " + ex.Message);
+            }
+        }
+
         #endregion
 
         #region Collecting Marks details
@@ -103,7 +142,8 @@ while (true)
             Console.WriteLine($"\nTotal Marks :\t{s.exameModel.Marks}");
             Console.WriteLine($"\nPercentage :\t{s.exameModel.Percentage}%");
             Console.WriteLine($"\n{studentVariable.Name} is\t{s.exameModel.PassOrFali} in the examination");
-            Console.WriteLine("\n\n-------------------------");
+            studentIDLast++;
+
         }
 
     }
@@ -136,5 +176,14 @@ ReportCard_file.LoadReportCards();
 
 #endregion
 
+#region SQL data
+
+//AddDataToDB sqlData = new AddDataToDB();
+//sqlData.sqlDataAdd();
+Console.ForegroundColor = ConsoleColor.Blue;
+database.RetriveDataFromDB();
+Console.ResetColor();
+
+#endregion
 Console.ReadLine();
 
