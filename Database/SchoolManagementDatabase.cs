@@ -13,7 +13,9 @@ namespace School.Database
         static string connectionString = @"Server=DESKTOP-EKMSCB0\SQLEXPRESS;Database=SchoolManagement;Trusted_Connection=True; TrustServerCertificate = True;";
 
         public void RetriveDataFromDB()
-        { 
+        {
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+
             // Define the query to retrieve all data from the Student table
             string query = "select * from Students";
             string exameQuery = "select * from Exam";
@@ -24,7 +26,6 @@ namespace School.Database
                 try
                 {
                     connection.Open();
-                    Console.WriteLine("Connection to SQL Server database was successful!");
 
                     #region Display Students table from database
 
@@ -35,13 +36,11 @@ namespace School.Database
                             // Check if the table has any rows
                             if (reader.HasRows)
                             {
-                                Console.WriteLine("Data from Student table:");
-
                                 // Read each row
                                 while (reader.Read())
                                 {
                                     // Adjust these columns based on your table structure
-                                    Console.WriteLine($"\nID:{reader["StudentID"]}\tName:{reader["Name"]}\tStd.:{reader["STD"]}\t\tRoll No.:{reader["RollNo"]}\tBirthdate:{reader["BirthDate"]}");
+                                    Console.WriteLine($"ID:{reader["StudentID"]}\tName:{reader["Name"]}\tStd.:{reader["STD"]}\t\tRoll No.:{reader["RollNo"]}\tBirthdate:{reader["BirthDate"]}");
                                 }
                             }
                             else
@@ -78,6 +77,8 @@ namespace School.Database
                     Console.WriteLine("An error occurred: " + ex.Message);
                 }
             }
+            Console.ResetColor();
+
         }
 
         public int getStudentIdFromStudentTable()
@@ -96,8 +97,6 @@ namespace School.Database
                         reader.Read();
 
                         studentssID = Convert.ToInt32(reader[0]);
-
-                        Console.WriteLine($"\n\nLast Student Id:*****************************************\t{studentssID}");
 
                     }
 

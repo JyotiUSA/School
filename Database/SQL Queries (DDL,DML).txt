@@ -52,6 +52,10 @@ join Students s ON e.StudentID = s.StudentId
 where s.Name = 'Jyoti'
 
 
+delete Students from Students where StudentID > 6
+
+
+
 
 
 

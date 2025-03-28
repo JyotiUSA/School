@@ -24,7 +24,7 @@ List<StudentModel> newStudents = new List<StudentModel>();
 SchoolManagementDatabase database = new SchoolManagementDatabase();
 
 
-int studentIDLast = database.getStudentIdFromStudentTable();
+int studentIDLast = database.getStudentIdFromStudentTable() + 1;
 
 while (true)
 {
@@ -79,7 +79,7 @@ while (true)
                 connection.Open();
                 using (SqlCommand command = new SqlCommand(insertQuery, connection))
                 {
-                    //studentID++;
+                    studentIDLast++;
                     command.Parameters.AddWithValue("StudentID", studentIDLast);
                     command.Parameters.AddWithValue("Name", studentVariable.Name);
                     command.Parameters.AddWithValue("Std", studentVariable.Std);
@@ -166,11 +166,17 @@ while (true)
 GoodByeMessage goodBye = new GoodByeMessage();
 string finalStatement = goodBye.PrintAtEndstring();
 
-Console.WriteLine($"\n{finalStatement}\n==========================\n\nPress any key to exit from this window...");
+Console.ForegroundColor = ConsoleColor.DarkMagenta;
+Console.WriteLine($"\n{finalStatement}");
+Console.ForegroundColor = ConsoleColor.Magenta;
+Console.WriteLine($"\nPress any key to exit from this window...");
+Console.ResetColor();
+
 #endregion
 
 #region File Handling
 
+Console.WriteLine("\n----------------------------------------------------------------------\nData from Files :-");
 ReportCard_file.SaveReportCards(newStudents);
 ReportCard_file.LoadReportCards();
 
@@ -178,12 +184,12 @@ ReportCard_file.LoadReportCards();
 
 #region SQL data
 
-//AddDataToDB sqlData = new AddDataToDB();
-//sqlData.sqlDataAdd();
-Console.ForegroundColor = ConsoleColor.Blue;
+Console.WriteLine("\n----------------------------------------------------------------------\nData from database :-");
+
 database.RetriveDataFromDB();
-Console.ResetColor();
 
 #endregion
+
+
 Console.ReadLine();
 
