@@ -1,1 +1,2 @@
-Name : kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk;Std. : 3;Roll No. : 1;Marks : 141;Percentage : 35.25;Status : Fail;
+Name : CST;Std. : 63;Roll No. : 45;Marks : 298;Percentage : 74.5;Status : Pass;
+Name : 65;Std. : 25;Roll No. : 20;Marks : 312;Percentage : 78;Status : Pass;

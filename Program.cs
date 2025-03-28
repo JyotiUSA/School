@@ -21,11 +21,6 @@ Console.WriteLine("-----------------------------------");
 #region Object Creation at runtime
 List<StudentModel> newStudents = new List<StudentModel>();
 
-SchoolManagementDatabase database = new SchoolManagementDatabase();
-
-
-int studentIDLast = database.getStudentIdFromStudentTable() + 1;
-
 while (true)
 {
     bool newEntry = true;
@@ -66,11 +61,15 @@ while (true)
 
         studentVariable.BirthDate = DateTime.Parse(Console.ReadLine());
 
+        #endregion
+
+        #region SQL Data collection into database table
+
         //StudentModel studentVariable = new StudentModel();
         string connectionString = @"Server=DESKTOP-EKMSCB0\SQLEXPRESS;Database=SchoolManagement;Trusted_Connection=True; TrustServerCertificate = True;";
 
         // SQL query to insert data            
-        string insertQuery = "INSERT INTO Students (StudentID , Name , Std , RollNo , BirthDate) VALUES (@StudentID , @Name , @Std , @RollNo , @BirthDate)\n";
+        string insertQuery = "INSERT INTO Student ( Name , Std , RollNo , BirthDate) VALUES ( @Name , @Std , @RollNo , @BirthDate)\n";
 
         using (SqlConnection connection = new SqlConnection(connectionString))
         {
@@ -79,13 +78,11 @@ while (true)
                 connection.Open();
                 using (SqlCommand command = new SqlCommand(insertQuery, connection))
                 {
-                    studentIDLast++;
-                    command.Parameters.AddWithValue("StudentID", studentIDLast);
                     command.Parameters.AddWithValue("Name", studentVariable.Name);
                     command.Parameters.AddWithValue("Std", studentVariable.Std);
                     command.Parameters.AddWithValue("RollNo", studentVariable.RollNo);
                     command.Parameters.AddWithValue("BirthDate", studentVariable.BirthDate);
-
+                    
                     command.ExecuteNonQuery();
                 }
             }
@@ -94,7 +91,6 @@ while (true)
                 Console.WriteLine("An error occurred: " + ex.Message);
             }
         }
-
         #endregion
 
         #region Collecting Marks details
@@ -142,8 +138,6 @@ while (true)
             Console.WriteLine($"\nTotal Marks :\t{s.exameModel.Marks}");
             Console.WriteLine($"\nPercentage :\t{s.exameModel.Percentage}%");
             Console.WriteLine($"\n{studentVariable.Name} is\t{s.exameModel.PassOrFali} in the examination");
-            studentIDLast++;
-
         }
 
     }
@@ -186,6 +180,7 @@ ReportCard_file.LoadReportCards();
 
 Console.WriteLine("\n----------------------------------------------------------------------\nData from database :-");
 
+SchoolManagementDatabase database = new SchoolManagementDatabase();
 database.RetriveDataFromDB();
 
 #endregion

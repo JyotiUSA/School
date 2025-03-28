@@ -17,7 +17,7 @@ namespace School.Database
             Console.ForegroundColor = ConsoleColor.DarkGray;
 
             // Define the query to retrieve all data from the Student table
-            string query = "select * from Students";
+            string query = "select * from Student";
             string exameQuery = "select * from Exam";
 
             // Create and open the connection
@@ -79,32 +79,6 @@ namespace School.Database
             }
             Console.ResetColor();
 
-        }
-
-        public int getStudentIdFromStudentTable()
-        {
-            int studentssID = 100;
-            string studentIdQuery = "select Max(StudentID)  from Students";
-
-            using (SqlConnection sqlConnection = new SqlConnection(connectionString))
-            {
-                sqlConnection.Open();
-
-                using (SqlCommand sqlCommand = new SqlCommand(studentIdQuery , sqlConnection))
-                {
-                    using (SqlDataReader reader = sqlCommand.ExecuteReader())
-                    {
-                        reader.Read();
-
-                        studentssID = Convert.ToInt32(reader[0]);
-
-                    }
-
-                }
-
-            }
-            
-            return studentssID;
         }
 
     }
